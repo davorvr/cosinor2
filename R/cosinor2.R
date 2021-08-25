@@ -254,7 +254,7 @@ population.cosinor.lm<-function(data,time,period,na.action = na.omit,alpha=.05, 
                                     geom_line(aes(y = emp.mean, linetype = "Observed"))+
                                     geom_line(aes(y = fitted.values, linetype = "Estimated"))+
                                     labs(x = "Time", y = "Value", linetype = "")+
-                                    scale_linetype_manual("",values=c("Estimated"=2,"Observed"=1)))
+                                    scale_linetype_manual("",values=c("Estimated"=2,"Observed"=1))
     names(population.cosinor)<-c("single.cos","pop.mat","coefficients","emp.mean","fitted.values","residuals","conf.ints", "ggplot")
   } else {
     names(population.cosinor)<-c("single.cos","pop.mat","coefficients","emp.mean","fitted.values","residuals","conf.ints")
