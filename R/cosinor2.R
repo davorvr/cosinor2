@@ -249,16 +249,18 @@ population.cosinor.lm<-function(data,time,period,na.action = na.omit,alpha=.05, 
   population.cosinor[[5]]<-fitted.values
   population.cosinor[[6]]<-residuals
   population.cosinor[[7]]<-conf.ints
-  names(population.cosinor)<-c("single.cos","pop.mat","coefficients","emp.mean","fitted.values","residuals","conf.ints")
+  if(plot == T){
+    population.cosinor[[8]]<-ggplot(data.frame(cbind(time, emp.mean, fitted.values)), aes(x = time))+
+                                    geom_line(aes(y = emp.mean, linetype = "Observed"))+
+                                    geom_line(aes(y = fitted.values, linetype = "Estimated"))+
+                                    labs(x = "Time", y = "Value", linetype = "")+
+                                    scale_linetype_manual("",values=c("Estimated"=2,"Observed"=1)))
+    names(population.cosinor)<-c("single.cos","pop.mat","coefficients","emp.mean","fitted.values","residuals","conf.ints", "ggplot")
+  } else {
+    names(population.cosinor)<-c("single.cos","pop.mat","coefficients","emp.mean","fitted.values","residuals","conf.ints")
+  }
   class(population.cosinor)<-"population.cosinor.lm"
   print(coefficients)
-  if(plot == T){
-    plot(ggplot(data.frame(cbind(time, emp.mean, fitted.values)), aes(x = time))+
-           geom_line(aes(y = emp.mean, linetype = "Observed"))+
-           geom_line(aes(y = fitted.values, linetype = "Estimated"))+
-           labs(x = "Time", y = "Value", linetype = "")+
-           scale_linetype_manual("",values=c("Estimated"=2,"Observed"=1)))
-  }
   invisible(population.cosinor)
   }
 
